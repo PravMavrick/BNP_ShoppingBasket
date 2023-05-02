@@ -3,7 +3,6 @@ package com.shoppingbasket.price.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shoppingbasket.price.model.Book;
 import com.shoppingbasket.price.service.BookService;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +10,6 @@ import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -21,8 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -54,6 +50,9 @@ class BookControllerTest {
                 new Book(104, "Test Driven Development by Example (Kent Beck, 2003)", 50),
                 new Book(105, "Working Effectively With Legacy Code (Michael C. Feathers, 2004)", 50)
         ).toList();
+
+
+
     }
 
     @AfterEach

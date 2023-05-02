@@ -1,7 +1,6 @@
 package com.shoppingbasket.price.service.impl;
 
 import com.shoppingbasket.price.model.DiscountRules;
-import com.shoppingbasket.price.repository.BookRepository;
 import com.shoppingbasket.price.repository.DiscountRuleRepository;
 import com.shoppingbasket.price.service.DiscountRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
