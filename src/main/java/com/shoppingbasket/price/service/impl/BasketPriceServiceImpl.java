@@ -28,6 +28,9 @@ public class BasketPriceServiceImpl implements BasketPriceService {
 
     public BasketPriceResponse getShoppingCartPrice(int totalQuantity) {
 
+        if(totalQuantity<=0)
+            throw new TotalQuantityShouldNotBeLessThanORZero("Total quantity should not be zero or in negative.");
+
         List<Book> bookList = bookRepository.findAll();
 
         if(bookList.size()==0){
