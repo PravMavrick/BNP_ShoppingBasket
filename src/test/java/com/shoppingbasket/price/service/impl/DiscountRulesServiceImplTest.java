@@ -1,6 +1,5 @@
 package com.shoppingbasket.price.service.impl;
 
-import com.shoppingbasket.price.model.Book;
 import com.shoppingbasket.price.model.DiscountRules;
 import com.shoppingbasket.price.repository.DiscountRuleRepository;
 import com.shoppingbasket.price.service.DiscountRulesService;
@@ -15,8 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class DiscountRulesServiceImplTest {

@@ -2,7 +2,6 @@ package com.shoppingbasket.price.controller;
 
 import com.shoppingbasket.price.model.Book;
 import com.shoppingbasket.price.service.BookService;
-import com.shoppingbasket.price.service.impl.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

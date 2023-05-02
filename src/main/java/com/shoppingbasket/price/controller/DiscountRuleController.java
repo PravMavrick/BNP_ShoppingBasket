@@ -2,7 +2,6 @@ package com.shoppingbasket.price.controller;
 
 import com.shoppingbasket.price.model.DiscountRules;
 import com.shoppingbasket.price.service.DiscountRulesService;
-import com.shoppingbasket.price.service.impl.DiscountRulesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
