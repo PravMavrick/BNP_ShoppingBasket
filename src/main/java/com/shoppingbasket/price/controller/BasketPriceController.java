@@ -23,8 +23,6 @@ public class BasketPriceController {
 
         int totalQuantity = basketList.stream().map(ShoppingBasket::getBookQuantity).reduce(0, Integer::sum);
 
-        if(totalQuantity<=0)
-            throw new TotalQuantityShouldNotBeLessThanORZero("Total quantity should not be zero or in negative.");
 
         return new ResponseEntity<>(basketPriceService.getShoppingCartPrice(totalQuantity), HttpStatus.OK);
     }

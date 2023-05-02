@@ -26,7 +26,7 @@ public class AssertThrows {
             shoppingBasketServiceImpl.getShoppingCartPrice(0);
                 }, "Total quantity should not be either zero or in negative.");
 
-        Assertions.assertEquals("Total quantity should not be either zero or in negative.",totalQuantityShouldNotBeLessThanORZero.getMessage());
+        Assertions.assertEquals("Total quantity should not be zero or in negative.",totalQuantityShouldNotBeLessThanORZero.getMessage());
     }
 
     @Test

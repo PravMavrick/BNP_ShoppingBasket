@@ -76,6 +76,7 @@ class BasketPriceServiceImplTest {
     void getShoppingCartPriceTestWithoutDiscountRulesInformation() {
 
         bookRepository.saveAll(bookList);
+        discountRuleRepository.deleteAll();
 
         BasketPriceResponse expectedBasketResponse= new BasketPriceResponse(400,0,
                 new ArrayList<>());
