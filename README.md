@@ -6,7 +6,7 @@ Calculate discounted price of Shopping basket
 1. Pull the code from below repo
    https://github.com/PravMavrick/DevelopementBooks.git into IDE
 2. Reload/update project with Maven And run the application.
-3. All endpoints exposed to Swagger UI, you can access it from below links.
+3. All endpoints exposed to Swagger-UI, you can access it from below links.
    1. http://localhost:8080/v3/api-docs
    2. http://localhost:8080/swagger-ui/index.html
 4. Please use PostMan or any API client application for testing the application.
