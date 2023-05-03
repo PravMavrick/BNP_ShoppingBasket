@@ -13,6 +13,5 @@ public class BasketPriceResponse {
 
     private double totalBasketPrice;
     private double discountedPrice;
-    private List<Integer> selectedSample;
 
 }

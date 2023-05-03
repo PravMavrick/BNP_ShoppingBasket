@@ -83,12 +83,3 @@ Calculate discounted price of Shopping basket
       "bookQuantity": 1
       }
       ]
-
-### Possible Exceptions
-  1. If Books are not registered then you will get below exceptions.
-   "Books are not registered into application."
-
-  2. If Discount rule is not registered into database then total price will be calculated as Total quantity * 50
-
-  3. If Books & DiscountRules are registered into database then you will get out as expected.
-

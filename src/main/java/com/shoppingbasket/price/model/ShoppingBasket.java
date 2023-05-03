@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class ShoppingBasket {
 
+    private int bookId;
     private String bookName;
     private int bookQuantity;
 

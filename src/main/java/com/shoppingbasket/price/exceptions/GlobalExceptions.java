@@ -21,6 +21,14 @@ public class GlobalExceptions {
 
         ApiResponse apiResponse = ApiResponse.builder().status(false).message(ex.getMessage()).build();
 
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<ApiResponse> illegalArgumentException(IllegalArgumentException ex){
+
+        ApiResponse apiResponse = ApiResponse.builder().status(false).message(ex.getMessage()).build();
+
+        return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
     }
 }
