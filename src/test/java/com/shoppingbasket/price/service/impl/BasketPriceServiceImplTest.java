@@ -3,6 +3,7 @@ package com.shoppingbasket.price.service.impl;
 import com.shoppingbasket.price.model.BasketPriceResponse;
 import com.shoppingbasket.price.model.Book;
 import com.shoppingbasket.price.model.DiscountRules;
+import com.shoppingbasket.price.model.ShoppingBasket;
 import com.shoppingbasket.price.repository.BookRepository;
 import com.shoppingbasket.price.repository.DiscountRuleRepository;
 import com.shoppingbasket.price.service.BasketPriceService;
@@ -31,6 +32,8 @@ class BasketPriceServiceImplTest {
     private BasketPriceService basketPriceService;
     List<Book> bookList;
     List<DiscountRules> discountRules;
+
+    List<ShoppingBasket> shoppingBasketList;
     @BeforeEach
     void setUp() {
 
@@ -51,7 +54,13 @@ class BasketPriceServiceImplTest {
         ).toList();
 
 
-
+        shoppingBasketList = Stream.of(
+                new ShoppingBasket(1, "Clean Code (Robert Martin, 2008)", 2),
+                new ShoppingBasket(2, "The Clean Coder (Robert Martin, 2011)", 2),
+                new ShoppingBasket(3, "Clean Architecture (Robert Martin, 2017)", 2),
+                new ShoppingBasket(4, "Test Driven Development by Example (Kent Beck, 2003)", 1),
+                new ShoppingBasket(5, "Working Effectively With Legacy Code (Michael C. Feathers, 2004)", 1)
+        ).toList();
 
     }
 
@@ -65,9 +74,8 @@ class BasketPriceServiceImplTest {
         bookRepository.saveAll(bookList);
         discountRuleRepository.saveAll(discountRules);
 
-        BasketPriceResponse expectedBasketResponse= new BasketPriceResponse(400,320,
-                Arrays.asList(4,4));
-        BasketPriceResponse basketPriceResponse = basketPriceService.getShoppingCartPrice(8);
+        BasketPriceResponse expectedBasketResponse= new BasketPriceResponse(400,320);
+        BasketPriceResponse basketPriceResponse = basketPriceService.getShoppingCartPrice(shoppingBasketList);
         Assertions.assertEquals(expectedBasketResponse.toString(),basketPriceResponse.toString());
 
     }
@@ -78,9 +86,8 @@ class BasketPriceServiceImplTest {
         bookRepository.saveAll(bookList);
         discountRuleRepository.deleteAll();
 
-        BasketPriceResponse expectedBasketResponse= new BasketPriceResponse(400,0,
-                new ArrayList<>());
-        BasketPriceResponse basketPriceResponse = basketPriceService.getShoppingCartPrice(8);
+        BasketPriceResponse expectedBasketResponse= new BasketPriceResponse(400,0);
+        BasketPriceResponse basketPriceResponse = basketPriceService.getShoppingCartPrice(shoppingBasketList);
         Assertions.assertEquals(expectedBasketResponse.toString(),basketPriceResponse.toString());
 
     }

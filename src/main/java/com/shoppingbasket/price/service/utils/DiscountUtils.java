@@ -1,92 +1,69 @@
 package com.shoppingbasket.price.service.utils;
 
-import com.shoppingbasket.price.model.BasketPriceResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DiscountUtils {
 
-    static int[] dp = new int[200];
-    //static int count = 0;
-    static ArrayList<ArrayList<Integer>> finalList = new ArrayList<ArrayList<Integer>>();
+    private static final Logger logger = LoggerFactory.getLogger(DiscountUtils.class);
 
-    static void collectSample(int idx) {
-        int oneCount = 0;
-        ArrayList<Integer> tempList = new ArrayList<>();
+    public static double getMinPriceOfBasketWithGivenQuantity(
+                Map<Integer, Integer> shoppingCartQuantity,
+                Map<Integer, Double> discPriceMap) {
 
-        for (int i = 1; i < idx; i++) {
-            if (dp[i] == 1) {
-                oneCount++;
+        int maxGroupSize = 5;
+        double totalMinDiscPrice = 0.0;
+
+        List<Integer> tempList = new ArrayList<>();
+        Map<Integer, Integer> tempShoppingCartQuantity = new ConcurrentHashMap<>();
+
+        while (maxGroupSize > 0) {
+
+            tempShoppingCartQuantity.putAll(shoppingCartQuantity);
+            logger.info("-------------------------------------------------------------------------------------");
+
+            int sum = 1;
+            double totalDiscPrice = 0.0;
+
+            while (sum > 0) {
+                tempList.clear();
+                int tempMaxGroupSize = maxGroupSize;
+
+                tempShoppingCartQuantity.forEach((key, value) -> {
+                    if (value > 0) {
+                        if (tempList.size() < tempMaxGroupSize) {
+                            tempList.add(key);
+                            tempShoppingCartQuantity.put(key, tempShoppingCartQuantity.get(key) - 1);
+                        }
+                    }
+                });
+
+                logger.info(tempList.toString());
+                totalDiscPrice = totalDiscPrice + discPriceMap.get(tempList.size());
+                sum = tempShoppingCartQuantity.values().stream().mapToInt(Integer::intValue).sum();
             }
-        }
-        if (oneCount > 1)
-            return;
+            logger.info("-------------------------------------------------------------------------------------");
 
-        for (int i = 1; i < idx; i++) {
-            tempList.add(dp[i]);
-        }
-        finalList.add(tempList);
-    }
-
-    static void solve(int remSum, int maxVal, int idx, int count) {
-        if (remSum == 0) {
-            collectSample(idx);
-            count++;
-            return;
-        }
-
-        for (int i = maxVal; i >= 1; i--) {
-            if (i <= remSum) {
-                dp[idx] = i;
-                solve(remSum - i, i, idx + 1, count);
+            if (totalMinDiscPrice == 0) {
+                totalMinDiscPrice = totalDiscPrice;
+            } else if (totalMinDiscPrice > totalDiscPrice) {
+                totalMinDiscPrice = totalDiscPrice;
             }
-        }
-    }
+            logger.info("Total price of current combination : " +totalDiscPrice +"   Minimum Price till now : " + totalMinDiscPrice);
 
-    // Driver code
-    public static ArrayList<ArrayList<Integer>> getNumberOfSamples(int totalQuantity) {
-        int count = 0;
-        finalList.clear();
-        solve(totalQuantity, 5, 1, count);
-        return finalList;
-    }
-
-    public static BasketPriceResponse getMinPriceOfBasketWithGivenSamplesSets(
-                            ArrayList<ArrayList<Integer>> numberOfSamples,
-                            Map<Integer, Double> discPriceMap) {
-
-        double totalPrice = 0.0, totalMinPrice = 0.0;
-        List<Integer> selectedSample = new ArrayList<>();
-
-        for (ArrayList<Integer> integerArrayList : numberOfSamples) {
-            System.out.println(integerArrayList);
-            totalPrice = 0.0;
-            for (Integer num : integerArrayList) {
-                Double aDouble = discPriceMap.get(num);
-                totalPrice = totalPrice + aDouble;
-            }
-
-            System.out.println("Min price : " + totalMinPrice + " total price : " + totalPrice);
-
-            if (totalMinPrice == 0) {
-                totalMinPrice = totalPrice;
-                selectedSample = integerArrayList;
-            } else if (totalMinPrice > totalPrice) {
-                totalMinPrice = totalPrice;
-                selectedSample = integerArrayList;
-            }
+            tempShoppingCartQuantity.clear();
+            maxGroupSize -= 1;
         }
 
-        Double totalFinalPrice = selectedSample.stream().map(e -> e * 50.0).reduce(0.0, Double::sum);
+        logger.info("-------------------------------------------------------------------------------------");
 
-        BasketPriceResponse basketPriceResponse = new BasketPriceResponse(totalFinalPrice, totalMinPrice, selectedSample);
-        System.out.println("Final price is --->  " + totalFinalPrice + " min price --> " + totalMinPrice + " Final Set : " + selectedSample);
-
-        return basketPriceResponse;
-
+        logger.info("Final Minimum basket price : " + totalMinDiscPrice);
+        return totalMinDiscPrice;
     }
-
 
 }

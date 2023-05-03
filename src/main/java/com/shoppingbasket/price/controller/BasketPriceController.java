@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -21,10 +22,7 @@ public class BasketPriceController {
     @PostMapping("/getPrice")
     public ResponseEntity<BasketPriceResponse> calculateShoppingCartPrice(@RequestBody List<ShoppingBasket> basketList){
 
-        int totalQuantity = basketList.stream().map(ShoppingBasket::getBookQuantity).reduce(0, Integer::sum);
-
-
-        return new ResponseEntity<>(basketPriceService.getShoppingCartPrice(totalQuantity), HttpStatus.OK);
+        return new ResponseEntity<>(basketPriceService.getShoppingCartPrice(basketList), HttpStatus.OK);
     }
 
 }
